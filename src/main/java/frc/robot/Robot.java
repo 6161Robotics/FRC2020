@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
   public static final DriveBase driveBase = new DriveBase();
   public static OI oi;
   PowerDistributionPanel pdp; 
+  public static final BallBase ballBase = new BallBase();
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
@@ -39,10 +41,11 @@ public class Robot extends TimedRobot {
 
 		//CameraServer.getInstance().startAutomaticCapture();
 		oi = new OI();
-		pdp = new PowerDistributionPanel();
+		pdp = new PowerDistributionPanel(5);
     
 
     driveBase.init();
+    ballBase.init();
   }
 
   /**
@@ -96,6 +99,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    Scheduler.getInstance().run();
+    Robot.driveBase.drivewithXbox();
   }
 
   /**

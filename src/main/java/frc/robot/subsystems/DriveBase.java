@@ -1,7 +1,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -14,10 +14,10 @@ import frc.robot.*;
 public class DriveBase extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_VictorSPX driveBaseRightFront;
-  private WPI_VictorSPX driveBaseRightRear;
-  private WPI_VictorSPX driveBaseLeftFront;
-  private WPI_VictorSPX driveBaseLeftRear;
+  private WPI_TalonSRX driveBaseRightFront;
+  private WPI_TalonSRX driveBaseRightRear;
+  private WPI_TalonSRX driveBaseLeftFront;
+  private WPI_TalonSRX driveBaseLeftRear;
   private DifferentialDrive driveBaseThe4Motors;
 
   public double autoSpeed = 0.75;
@@ -26,10 +26,10 @@ public class DriveBase extends Subsystem {
 
 
   public void init(){
-    driveBaseRightFront = new WPI_VictorSPX(1);          
-    driveBaseRightRear = new WPI_VictorSPX(0);
-    driveBaseLeftFront = new WPI_VictorSPX(2);
-    driveBaseLeftRear = new WPI_VictorSPX(3);
+    driveBaseRightFront = new WPI_TalonSRX(16);          
+    driveBaseRightRear = new WPI_TalonSRX(15);
+    driveBaseLeftFront = new WPI_TalonSRX(13);
+    driveBaseLeftRear = new WPI_TalonSRX(14);
    
     SpeedControllerGroup rightSpeedController = new SpeedControllerGroup(driveBaseRightFront, driveBaseRightRear);    
     SpeedControllerGroup leftSpeedController = new SpeedControllerGroup(driveBaseLeftFront, driveBaseLeftRear);
@@ -57,6 +57,10 @@ public class DriveBase extends Subsystem {
 
 
   public void drivewithXbox(){
+    if (Robot.oi.getTheJoystick().getRawButton(3)){
+      Robot.driveBase.getRobotDrive().arcadeDrive(-Robot.oi.theXbox.getRawAxis(1), Robot.oi.theXbox.getRawAxis(2));
+      return;
+    }
     if (Robot.oi.theXbox.getRawAxis(1) > lastForward) {
     	lastForward += curve;
     	//lastForward = lastForward + 0.02; <--- same as above
@@ -64,7 +68,7 @@ public class DriveBase extends Subsystem {
     else {
     	lastForward -= curve;
     }
-    Robot.driveBase.getRobotDrive().arcadeDrive(lastForward, -Robot.oi.theXbox.getRawAxis(2));
+    Robot.driveBase.getRobotDrive().arcadeDrive(-lastForward, -Robot.oi.theXbox.getRawAxis(2));
   }
    
 }
