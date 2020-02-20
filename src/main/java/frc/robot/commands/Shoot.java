@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.*;
 
-public class SlideDown extends Command {
-  public SlideDown() {
-    requires(Robot.climberBase);
+public class Shoot extends Command {
+  public Shoot() {
+    requires(Robot.ballBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -26,7 +26,7 @@ public class SlideDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climberBase.SlideDown();
+    Robot.ballBase.Shoot();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +38,7 @@ public class SlideDown extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climberBase.StopSlide();
+    Robot.ballBase.StopShoot();
   }
 
   // Called when another command which requires one or more of the same

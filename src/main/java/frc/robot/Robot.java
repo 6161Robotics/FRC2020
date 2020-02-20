@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   PowerDistributionPanel pdp; 
   public static final BallBase ballBase = new BallBase();
+  public static final ClimberBase climberBase = new ClimberBase();
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
 
     driveBase.init();
     ballBase.init();
+    climberBase.init();
   }
 
   /**

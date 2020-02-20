@@ -12,7 +12,7 @@ import frc.robot.*;
 
 public class SlideUp extends Command {
   public SlideUp() {
-    requires(Robot.ballBase);
+    requires(Robot.climberBase);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -26,7 +26,7 @@ public class SlideUp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ballBase.SlideUp();
+    Robot.climberBase.SlideUp();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +38,7 @@ public class SlideUp extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.ballBase.StopSlide();
+    Robot.climberBase.StopSlide();
   }
 
   // Called when another command which requires one or more of the same
