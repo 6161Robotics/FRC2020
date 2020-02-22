@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class BallBase extends Subsystem {
-  private double intakeSpeed = 0.3;
+  private double intakeSpeed = 0.5;
   private double conveyorSpeed = 0.5;
   private double shooterSpeed = 0.33;
   private WPI_VictorSPX intakeMotor;

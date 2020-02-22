@@ -17,22 +17,36 @@ import frc.robot.commands.*;
 
 public class OI {
   public Joystick theXbox;
-  public JoystickButton joyIntake;
+  public AxisButton joyIntake;
+  public AxisButton joyOuttake;
   public JoystickButton joySlideUp;
   public JoystickButton joySlideDown;
+  public JoystickButton joyWinchUp;
+  public JoystickButton joyWinchDown;
+  private double threshhold = 0.2;
 
 
   public OI (){
     theXbox = new Joystick(0);
 
-    joyIntake = new JoystickButton(theXbox, 8);
+    joyIntake = new AxisButton(theXbox, Gamepad.Axes.RIGHT_TRIGGER.getNumber(), threshhold);
     joyIntake.whileHeld(new Intake());
+
+    joyOuttake = new AxisButton(theXbox, Gamepad.Axes.LEFT_TRIGGER.getNumber(), threshhold);
+    joyOuttake.whileHeld(new Outtake());
 
     joySlideUp = new JoystickButton(theXbox, 4);
     joySlideUp.whileHeld(new SlideUp());
 
-    joySlideDown = new JoystickButton(theXbox, 3);
+    joySlideDown = new JoystickButton(theXbox, 2);
     joySlideDown.whileHeld(new SlideDown());
+
+    joyWinchUp = new JoystickButton(theXbox, 5);
+    joyWinchUp.whileHeld(new WinchUp());
+
+    joyWinchDown = new JoystickButton(theXbox, 6);
+    joyWinchDown.whileHeld(new WinchDown());
+
   }
 
   public Joystick getTheJoystick() {

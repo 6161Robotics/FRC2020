@@ -15,14 +15,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ClimberBase extends Subsystem {
   private double slideSpeed = 1;
-  private double winchSpeed = 0.75;
+  private double winchSpeed = 1;
 
   private WPI_VictorSPX sliderMotor;
   private WPI_VictorSPX winchMotor;
+  private WPI_VictorSPX winchMotorTwo;
 
   public void init(){
     sliderMotor = new WPI_VictorSPX(19);
     winchMotor = new WPI_VictorSPX(18);
+    winchMotorTwo = new WPI_VictorSPX(11);
   }
 
 
@@ -47,13 +49,16 @@ public class ClimberBase extends Subsystem {
 
   public void WinchUp(){
     winchMotor.set(winchSpeed);
+    winchMotorTwo.set(winchSpeed);
   }
 
   public void WinchDown(){
     winchMotor.set(-winchSpeed);
+    winchMotorTwo.set(-winchSpeed);
   }
 
   public void StopWinch(){
     winchMotor.set(0);
+    winchMotorTwo.set(0);
   }
 }
