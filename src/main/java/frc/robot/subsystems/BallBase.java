@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class BallBase extends Subsystem {
   private double intakeSpeed = 0.5;
-  private double conveyorSpeed = 0.5;
+  private double conveyorSpeed = 1;
   private double shooterSpeed = 0.33;
   private WPI_VictorSPX intakeMotor;
   private WPI_VictorSPX conveyorMotor;
@@ -42,7 +42,12 @@ public class BallBase extends Subsystem {
   public void Convey(){
     conveyorMotor.set(conveyorSpeed);
   }
-  public void Shoot(){
+       
+  public void StopConvey(){     
+    conveyorMotor.set(0);
+  }
+
+  public void Shoot(){ 
     shooterMotor.set(shooterSpeed);
   }
 

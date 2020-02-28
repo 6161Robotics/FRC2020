@@ -10,6 +10,7 @@ package frc.robot;
 //import frc.robot.Gamepad;
 //import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Gamepad;
 //import frc.robot.commands.*;
@@ -17,12 +18,15 @@ import frc.robot.commands.*;
 
 public class OI {
   public Joystick theXbox;
+ // public XboxController 
   public AxisButton joyIntake;
   public AxisButton joyOuttake;
   public JoystickButton joySlideUp;
   public JoystickButton joySlideDown;
   public JoystickButton joyWinchUp;
   public JoystickButton joyWinchDown;
+  public JoystickButton joyConvey;
+  public JoystickButton joyShoot;
   private double threshhold = 0.2;
 
 
@@ -46,6 +50,12 @@ public class OI {
 
     joyWinchDown = new JoystickButton(theXbox, 6);
     joyWinchDown.whileHeld(new WinchDown());
+
+    joyConvey = new JoystickButton(theXbox, 1);
+    joyConvey.whileHeld(new Convey());
+
+    joyShoot = new JoystickButton(theXbox, 3);
+    joyShoot.whileHeld(new Shoot());
 
   }
 

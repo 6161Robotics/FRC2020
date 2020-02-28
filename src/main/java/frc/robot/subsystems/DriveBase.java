@@ -3,9 +3,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.*;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class DriveBase extends Subsystem {
@@ -67,5 +69,18 @@ public class DriveBase extends Subsystem {
     }
     Robot.driveBase.getRobotDrive().arcadeDrive(-lastForward, -Robot.oi.theXbox.getRawAxis(4));
   }
-   
+
+  public void vibXbox(){
+    
+
+   if (Timer.getMatchTime() < 50 && Timer.getMatchTime() > 45){
+    Robot.oi.theXbox.setRumble(RumbleType.kLeftRumble, 1);
+    Robot.oi.theXbox.setRumble(RumbleType.kRightRumble, 1);
+  }
+
+   else {
+    Robot.oi.theXbox.setRumble(RumbleType.kLeftRumble, 0);
+    Robot.oi.theXbox.setRumble(RumbleType.kRightRumble, 0);
+   }
+  }
 }

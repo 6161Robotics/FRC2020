@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     Robot.driveBase.drivewithXbox();
+    Robot.driveBase.vibXbox();
   }
 
   /**
