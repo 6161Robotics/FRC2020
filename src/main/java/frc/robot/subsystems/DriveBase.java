@@ -54,6 +54,13 @@ public class DriveBase extends Subsystem {
     return driveBaseThe4Motors;
   }
 
+  public void AutoForward(){
+    driveBaseThe4Motors.arcadeDrive(0.9, 0);
+  }
+  public void Stop(){
+    driveBaseThe4Motors.arcadeDrive(0, 0);
+  }
+
 
   public void drivewithXbox(){
     if (Robot.oi.getTheJoystick().getRawButton(3)){

@@ -8,11 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
+import frc.robot.commands.auto.DriveAutoForward;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -28,16 +31,16 @@ public class Robot extends TimedRobot {
   public static final BallBase ballBase = new BallBase();
   public static final ClimberBase climberBase = new ClimberBase();
 
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  //private static final String kDefaultAuto = "";
+  //private static final String kCustomAuto = "My Auto";
+  private Command autoCommand;
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    m_chooser.setDefaultOption("Default Auto", new DriveAutoForward(1.5));
+    m_chooser.addOption("Nothing", new WaitCommand(1));
     SmartDashboard.putData("Auto choices", m_chooser);
 
 		//CameraServer.getInstance().startAutomaticCapture();
@@ -75,9 +78,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    autoCommand = m_chooser.getSelected();
+    if (autoCommand != null){
+      autoCommand.start();
+    }
+
   }
 
   /**
@@ -85,19 +90,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+      Scheduler.getInstance().run();
   }
 
+  @Override
+  public void teleopInit() {
+    if (autoCommand != null){
+    autoCommand.cancel();
+    }
+  
+   // super.teleopInit();
+  }
   /**
    * This function is called periodically during operator control.
+   * 
    */
   @Override
   public void teleopPeriodic() {
